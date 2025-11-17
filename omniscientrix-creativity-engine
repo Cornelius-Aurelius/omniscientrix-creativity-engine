@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Omniscientrix Creativity Engine — By Cornelius Aurelius</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+/* ------------------------------------------------------
+   GLOBAL THEME — BLACK + NEON BLUE OMNISCIENTRIX AESTHETIC
+------------------------------------------------------ */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
+body{
+    background:#000;
+    color:#d6ecff;
+    padding-bottom:120px;
+}
+header{
+    text-align:center;
+    padding:32px;
+    font-size:28px;
+    font-weight:bold;
+    color:#4ab3ff;
+    text-shadow:0 0 18px #4ab3ff;
+}
+
+/* ------------------------------------------------------
+   MAIN CONTAINER
+------------------------------------------------------ */
+.container{
+    max-width:950px;
+    margin:30px auto;
+    background:#0a0f14;
+    padding:28px;
+    border-radius:20px;
+    box-shadow:0 0 28px #052034 inset, 0 0 18px #083c5d;
+}
+
+/* LABELS & INPUTS ------------------------------------------------------ */
+label{
+    display:block;
+    margin-top:22px;
+    color:#4ab3ff;
+    font-weight:bold;
+}
+input,textarea,select{
+    width:100%;
+    padding:16px;
+    margin-top:10px;
+    border:1px solid #0f2d42;
+    background:#071017;
+    color:#d6ecff;
+    border-radius:12px;
+    box-shadow:0 0 12px #05121b inset;
+    font-size:17px;
+}
+
+/* BUTTON ------------------------------------------------------ */
+button{
+    margin-top:28px;
+    width:100%;
+    padding:18px;
+    font-size:20px;
+    font-weight:bold;
+    background:#4ab3ff;
+    color:#000;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 0 22px #4ab3ff;
+}
+button:hover{
+    background:#72c7ff;
+    box-shadow:0 0 30px #72c7ff;
+}
+
+/* LOADER ------------------------------------------------------ */
+#loader{
+    display:none;
+    text-align:center;
+    margin-top:25px;
+}
+.spinner{
+    width:50px;height:50px;
+    border:6px solid #0e344c;
+    border-top-color:#4ab3ff;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:auto;
+}
+@keyframes spin{100%{transform:rotate(360deg);}}
+
+/* OUTPUT ------------------------------------------------------ */
+#output{
+    display:none;
+    margin-top:35px;
+    padding:25px;
+    background:#070c11;
+    border-radius:16px;
+    box-shadow:0 0 20px #082234 inset;
+    animation:fadeIn 0.7s ease;
+}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(14px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* RESULT CARDS ------------------------------------------------------ */
+.card{
+    background:#0f141b;
+    margin-top:20px;
+    padding:18px;
+    border-radius:14px;
+    box-shadow:0 0 16px #061723 inset;
+}
+.card h3{
+    color:#4ab3ff;
+    margin-bottom:12px;
+    text-shadow:0 0 10px #4ab3ff;
+}
+
+/* BLOOM VISUAL ------------------------------------------------------ */
+#bloom{
+    width:100%;
+    height:180px;
+    background:radial-gradient(circle, #062033, #000);
+    border-radius:14px;
+    margin-top:20px;
+    box-shadow:0 0 25px #083c5a inset;
+    position:relative;
+    overflow:hidden;
+}
+.spark{
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:#4ab3ff;
+    border-radius:50%;
+    box-shadow:0 0 12px #4ab3ff;
+    animation:float 3s infinite ease-in-out;
+}
+@keyframes float{
+    0%{transform:translateY(0);opacity:0.9;}
+    50%{transform:translateY(-40px);opacity:0.5;}
+    100%{transform:translateY(0);opacity:0.9;}
+}
+
+/* FOOTER ------------------------------------------------------ */
+footer{
+    margin-top:40px;
+    text-align:center;
+    opacity:0.75;
+    color:#5caeff;
+    font-size:14px;
+}
+footer a{color:#4ab3ff;font-weight:bold;}
+</style>
+</head>
+
+
+<body>
+
+<header>Omniscientrix Creativity Engine (Ω∞ Creative Core)</header>
+
+<div class="container">
+
+    <p>The ultimate idea-generation engine. Select a mode, enter your concept, and the Ω∞ system creates advanced creative structures instantly.</p>
+
+    <label>Base Concept</label>
+    <textarea id="concept" rows="3" placeholder="Example: futuristic shoe brand"></textarea>
+
+    <label>Mode</label>
+    <select id="mode">
+        <option value="names">Brand/Character Names</option>
+        <option value="slogans">Slogans</option>
+        <option value="products">Product Ideas</option>
+        <option value="business">Business Models</option>
+        <option value="apps">App Ideas</option>
+        <option value="inventions">Inventions</option>
+        <option value="stories">Short Story Plots</option>
+        <option value="hooks">Viral Hooks</option>
+        <option value="ads">Ad Concepts</option>
+        <option value="powers">Superpowers</option>
+        <option value="artifacts">Ancient Artifacts</option>
+        <option value="timelines">Alternate Timelines</option>
+        <option value="worlds">World-Building Concepts</option>
+        <option value="lore">Lore Expansions</option>
+        <option value="skills">Skill Trees</option>
+        <option value="creatures">Creatures</option>
+        <option value="universes">Fictional Universes</option>
+        <option value="memes">Meme Concepts</option>
+        <option value="weapons">Sci-fi Tools (non-harmful)</option>
+        <option value="magic">Magic Systems</option>
+        <option value="scifi">Sci-Fi Technologies</option>
+        <option value="fantasy">Fantasy Concepts</option>
+        <option value="prompts">Creative Prompts</option>
+        <option value="transforms">Idea Transformations</option>
+        <option value="expander">Idea Expansion (100 ideas)</option>
+        <option value="refiner">Refined Variations</option>
+        <option value="pitch">Pitch Generator</option>
+        <option value="startup">Startup Pitches</option>
+        <option value="content">Content Topics</option>
+    </select>
+
+    <button onclick="begin()">Generate Creativity</button>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <div class="loading-text">Generating Ω∞ Patterns...</div>
+    </div>
+
+    <div id="output"></div>
+
+    <div id="bloom"></div>
+
+</div>
+
+<footer>
+Created by <b>CORNELIUS AURELIUS</b><br>
+<a href="https://zenodo.org/records/17362534" target="_blank">The Peace License</a>
+</footer>
+
+
+
+
+<script>
+/* ----------------------------------------------------------
+   BLOOM VISUAL (Random Sparks)
+---------------------------------------------------------- */
+function bloom(){
+    const area=document.getElementById("bloom");
+    area.innerHTML="";
+    for(let i=0;i<22;i++){
+        let s=document.createElement("div");
+        s.className="spark";
+        s.style.left=Math.random()*100+"%";
+        s.style.top=(20+Math.random()*60)+"%";
+        s.style.animationDelay=(Math.random()*2)+"s";
+        area.appendChild(s);
+    }
+}
+bloom();
+
+
+
+/* ----------------------------------------------------------
+   MASTER GENERATION SYSTEM (Ω∞ Creative Core)
+---------------------------------------------------------- */
+function begin(){
+    document.getElementById("loader").style.display="block";
+    document.getElementById("output").style.display="none";
+
+    setTimeout(generate,1200);
+}
+
+
+
+function generate(){
+    document.getElementById("loader").style.display="none";
+
+    const c=document.getElementById("concept").value.trim();
+    const m=document.getElementById("mode").value;
+
+    const ideas=Ωcreative(c,m);
+
+    document.getElementById("output").innerHTML = `
+        <div class="card">
+            <h3>Generated Results</h3>
+            ${ideas.map(i=>"<p>• "+i+"</p>").join("")}
+        </div>
+    `;
+
+    document.getElementById("output").style.display="block";
+    bloom();
+}
+
+
+
+/* ----------------------------------------------------------
+   Ω∞ CREATIVE ENGINE
+---------------------------------------------------------- */
+function Ωcreative(base,mode){
+    if(!base) base="concept";
+
+    switch(mode){
+
+        case "names": return gen(base,[
+            "Neon "+base,
+            base+" Prime",
+            base+" Nova",
+            "Blue "+base+" Labs",
+            base+" ΩCore",
+            base+" Horizon",
+            base+" Axis",
+            base+" Rift"
+        ]);
+
+        case "slogans": return gen(base,[
+            "Where "+base+" becomes infinite.",
+            base+"—powered by imagination.",
+            "Unlock the future of "+base+".",
+            "Born from light. Built for tomorrow."
+        ]);
+
+        case "products": return genDynamic(base,12,"Product");
+
+        case "business": return genDynamic(base,12,"Business Model");
+
+        case "apps": return genDynamic(base,12,"App");
+
+        case "inventions": return genDynamic(base,12,"Invention");
+
+        case "stories": return genDynamic(base,12,"Story Concept");
+
+        case "hooks": return genDynamic(base,12,"Viral Hook");
+
+        case "ads": return genDynamic(base,10,"Ad Concept");
+
+        case "powers": return genDynamic(base,15,"Superpower");
+
+        case "artifacts": return genDynamic(base,15,"Ancient Artifact");
+
+        case "timelines": return genDynamic(base,12,"Alternate Timeline");
+
+        case "worlds": return genDynamic(base,12,"World Concept");
+
+        case "lore": return genDynamic(base,15,"Lore Expansion");
+
+        case "skills": return genDynamic(base,12,"Skill Tree Node");
+
+        case "creatures": return genDynamic(base,15,"Creature");
+
+        case "universes": return genDynamic(base,12,"Universe Blueprint");
+
+        case "memes": return genDynamic(base,12,"Meme Idea");
+
+        case "weapons": return genDynamic(base,12,"Sci-Fi Tool");
+
+        case "magic": return genDynamic(base,12,"Magic System");
+
+        case "scifi": return genDynamic(base,12,"Sci-Fi Concept");
+
+        case "fantasy": return genDynamic(base,12,"Fantasy Element");
+
+        case "prompts": return genDynamic(base,15,"Creative Prompt");
+
+        case "transforms": return genDynamic(base,20,"Transformed Idea");
+
+        case "expander": return genDynamic(base,100,"Idea");
+
+        case "refiner": return genDynamic(base,20,"Refined Variant");
+
+        case "pitch": return gen(base,[
+            base+" will redefine the next decade.",
+            "Imagine a world where "+base+" becomes reality.",
+            base+" unlocks a new category entirely.",
+            "A premium, scalable, future-proof take on "+base+"."
+        ]);
+
+        case "startup": return genDynamic(base,12,"Startup Pitch");
+
+        case "content": return genDynamic(base,30,"Content Topic");
+
+        default: return ["No mode selected."];
+    }
+}
+
+
+
+/* GENERATION UTILITIES ------------------------------------------------------ */
+function gen(base,list){
+    return list.map(x=>x.replace(/base/gi,base));
+}
+
+function genDynamic(base,count,label){
+    let arr=[];
+    for(let i=0;i<count;i++){
+        arr.push(`${label}: ${mut(base)} ${variant()}`);
+    }
+    return arr;
+}
+
+function mut(b){
+    const mods=["Quantum","Neon","Nova","Prime","Hyper","Omega","Blue","Echo","Eternal","Apex"];
+    return mods[Math.floor(Math.random()*mods.length)]+" "+b;
+}
+
+function variant(){
+    const v=["Engine","System","Protocol","Flow","Cycle","Node","Realm","Frame","Core","Architect","Shift"];
+    return v[Math.floor(Math.random()*v.length)];
+}
+</script>
+
+</body>
+</html>
